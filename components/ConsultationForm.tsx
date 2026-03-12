@@ -112,7 +112,7 @@ export const ConsultationForm: React.FC = () => {
                 친절하게 안내해드립니다.
               </h2>
               <p className="text-lg font-medium text-white/80 mb-6">
-                국비지원 자격 여부부터 취업/교육과정까지<br/>
+                국비지원 자격 여부부터 취업·교육과정까지<br/>
                 <span className="border-b-2 border-white">무료로 상담해드립니다.</span>
               </p>
               
