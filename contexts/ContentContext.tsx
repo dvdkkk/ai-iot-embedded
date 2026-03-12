@@ -7,7 +7,7 @@ const defaultContent: SiteContent = {
   hero: {
     badge: "AI 미래유망직종 1위",
     title: "미래를 여는 인공지능 기술",
-    highlight: "AI사물인터넷 MCU기반(STM32,ESP32) 임베디드 펌웨어 전문가 양성",
+    highlight: "AI사물인터넷 MCU기반 임베디드 펌웨어 전문가 양성",
     description: "온 디바이스AI, 스마트팩토리, 스마트팜 등에 활용되는 Cortex-M4/Mx ARM MCU 기반 임베디드/펌웨어 실무 교육 과정입니다. 한국직업능력교육원에서 임베디드 전문가로 거듭나세요.",
     stats: [
       { label: '모집여부', value: '26년4월 ~ 26년10월(6개월과정)' },
@@ -23,7 +23,7 @@ const defaultContent: SiteContent = {
     title1: "전공·경력·성별 상관없이",
     highlight: "‘할 수 있는 사람’",
     title2: "을 만들어냅니다",
-    description: "성별과 전공을 넘어 다양한 수료생들이 지금 이 순간에도 IT 현장에서 AI 개발자로 활약하고 있습니다.",
+    description: "성별과 전공을 넘어 다양한 수료생들이 지금 이 순간에도 IT실무자로 활약하고 있습니다.",
     images: [
       "https://postfiles.pstatic.net/MjAyNjAyMDdfMTI5/MDAxNzcwNDczMzk4MzM5.j6rX1bGlkkwNbV77txNgK14lBHAYbiKYfjFpgFzk1RAg.WXfNRwdBQeh3Zhcovjw_scv8iSDnJAuGWqby2eYoZvQg.JPEG/grok%EF%BC%BFimage%EF%BC%BF1770466544356.jpg?type=w966",
       "https://postfiles.pstatic.net/MjAyNjAyMDdfMjI5/MDAxNzcwNDczMzk5OTE3.zw8tAXItIlc5CRfOO4Q5suU3s0dKbyxIM49ParhCvqQg.I1bS28bnL015uE1pv3IkM5ToKsiZLT1XO7W_3L0UYV8g.JPEG/grok%EF%BC%BFimage%EF%BC%BF1770469035959.jpg?type=w966",
@@ -86,8 +86,8 @@ interface ContentContextType {
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 // 버전을 v8로 올려서 로컬 스토리지를 강제 갱신함
-const STORAGE_KEY = 'site_content_v8';
-const LOG_KEY = 'visitor_logs_v8';
+const STORAGE_KEY = 'site_content_v9';
+const LOG_KEY = 'visitor_logs_v9';
 
 export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(defaultContent);

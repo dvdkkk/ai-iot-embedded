@@ -110,7 +110,7 @@ export const InstructorsSection: React.FC = () => {
                   <img 
                     src={instructor.image} 
                     alt={`강사 ${instructor.name}`} 
-                    className="w-full h-auto max-h-80 md:max-h-none md:h-full object-contain object-top md:object-cover md:object-center grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    className="w-full h-auto max-h-80 md:max-h-none md:h-full object-contain object-top md:object-cover md:object-center transition-all duration-700 scale-105 group-hover:scale-100"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute bottom-4 left-4 z-20 md:bottom-auto md:top-4">

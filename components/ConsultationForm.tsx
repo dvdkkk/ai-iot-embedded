@@ -159,7 +159,7 @@ export const ConsultationForm: React.FC = () => {
                   <input type="hidden" name="user_ip" value={ipAddress} />
                   <input type="hidden" name="_subject" value="[신규 상담 신청] AI사물인터넷 MCU기반(STM32,ESP32) 임베디드 펌웨어 전문가 양성" />
 
-                  <h3 className="text-lg font-bold mb-2 md:mb-3 flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-zinc-900 mb-2 md:mb-3 flex items-center gap-2">
                       빠른 교육상담 신청
                       <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                   </h3>
@@ -167,22 +167,22 @@ export const ConsultationForm: React.FC = () => {
                   <div className="grid md:grid-cols-2 gap-2 md:gap-3">
                       <div className="space-y-0.5 md:space-y-1">
                           <label className="text-xs font-bold text-gray-700 ml-1">이름</label>
-                          <input required name="name" type="text" placeholder="홍길동" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm" />
+                          <input required name="name" type="text" placeholder="홍길동" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm text-black" />
                       </div>
                       <div className="space-y-0.5 md:space-y-1">
                           <label className="text-xs font-bold text-gray-700 ml-1">나이</label>
-                          <input required name="나이" type="text" placeholder="예: 30" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm" />
+                          <input required name="나이" type="text" placeholder="예: 30" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm text-black" />
                       </div>
                   </div>
 
                   <div className="space-y-0.5 md:space-y-1">
                       <label className="text-xs font-bold text-gray-700 ml-1">연락처</label>
-                      <input required name="연락처" type="tel" placeholder="010-0000-0000" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm" />
+                      <input required name="연락처" type="tel" placeholder="010-0000-0000" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm text-black" />
                   </div>
 
                   <div className="space-y-0.5 md:space-y-1">
                       <label className="text-xs font-bold text-gray-700 ml-1">이메일</label>
-                      <input required name="email" type="email" placeholder="example@email.com" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm" />
+                      <input required name="email" type="email" placeholder="example@email.com" className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all text-sm text-black" />
                   </div>
 
                   <div className="space-y-0.5 md:space-y-1">
@@ -191,7 +191,7 @@ export const ConsultationForm: React.FC = () => {
                           {['취업/이직', '자기개발', '창업', '기타'].map((purpose) => (
                               <label key={purpose} className="flex items-center gap-2 p-1.5 md:p-2 border rounded-lg cursor-pointer hover:bg-gray-50 flex-1 min-w-[80px] justify-center">
                                   <input type="radio" name="교육목적" value={purpose} required className="accent-purple-800 w-3.5 h-3.5" />
-                                  <span className="text-xs font-bold">{purpose}</span>
+                                  <span className="text-xs font-bold text-gray-700">{purpose}</span>
                               </label>
                           ))}
                       </div>
@@ -199,7 +199,7 @@ export const ConsultationForm: React.FC = () => {
 
                   <div className="space-y-0.5 md:space-y-1">
                       <label className="text-xs font-bold text-gray-700 ml-1">문의내용</label>
-                      <textarea name="message" rows={2} placeholder="궁금하신 점을 자유롭게 적어주세요." className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all resize-none text-sm" required></textarea>
+                      <textarea name="message" rows={2} placeholder="궁금하신 점을 자유롭게 적어주세요." className="w-full px-3 py-2 md:py-2.5 rounded-lg border border-gray-200 focus:border-purple-800 focus:ring-2 focus:ring-purple-800/20 outline-none transition-all resize-none text-sm text-black" required></textarea>
                   </div>
 
                   {/* Privacy Policy */}

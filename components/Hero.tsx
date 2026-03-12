@@ -67,8 +67,10 @@ export const Hero: React.FC = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Cpu className="text-purple-800 hidden md:block" size={32} />
-                <h2 className="text-xl md:text-3xl font-black text-white tracking-tighter">
-                  AI사물인터넷 MCU기반(STM32,ESP32) <span className="text-purple-800">임베디드 펌웨어 전문가 양성</span>
+                <h2 className="text-xl md:text-3xl font-black text-white tracking-tighter leading-snug">
+                  AI사물인터넷 MCU기반<br />
+                  (STM32,ESP32)<br />
+                  <span className="text-purple-800">임베디드 펌웨어 전문가 양성</span>
                 </h2>
               </div>
             </div>

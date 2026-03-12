@@ -95,18 +95,18 @@ const Reveal: React.FC<RevealProps> = ({ children, className = "", delay = 0 }) 
 
 export const StatsSection: React.FC = () => {
   return (
-    <section className="py-32 bg-[#1a1a1e] relative overflow-hidden flex flex-col items-center justify-center text-center">
+    <section className="py-20 md:py-24 bg-[#1a1a1e] relative overflow-hidden flex flex-col items-center justify-center text-center">
       {/* Background Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-800/5 rounded-full blur-[120px] pointer-events-none"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         
-        <Reveal className="mb-24">
+        <Reveal className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-purple-800 mb-4">
               <TrendingUp size={14} />
               <span className="text-xs font-bold tracking-wide uppercase">왜 한직교인가?</span>
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight">
             숫자가 말해주는<br />
             <span className="text-purple-800">한직교 실력</span>
           </h2>
@@ -115,11 +115,11 @@ export const StatsSection: React.FC = () => {
           </p>
         </Reveal>
 
-        <div className="space-y-32">
+        <div className="space-y-16 md:space-y-20">
           {/* Stat 1: Graduates */}
           <div className="group">
             <Reveal delay={200} className="mb-4">
-              <div className="text-white text-7xl md:text-[120px] font-black tracking-tighter drop-shadow-[0_0_30px_rgba(107,33,168,0.2)]">
+              <div className="text-white text-5xl md:text-7xl font-black tracking-tighter drop-shadow-[0_0_30px_rgba(107,33,168,0.2)]">
                 <CountUp end={2538} suffix="명" separator={true} />
               </div>
             </Reveal>
@@ -132,7 +132,7 @@ export const StatsSection: React.FC = () => {
           {/* Stat 2: Salary */}
           <div className="group">
             <Reveal delay={400} className="mb-4">
-              <div className="text-white text-7xl md:text-[120px] font-black tracking-tighter drop-shadow-[0_0_30px_rgba(107,33,168,0.2)]">
+              <div className="text-white text-5xl md:text-7xl font-black tracking-tighter drop-shadow-[0_0_30px_rgba(107,33,168,0.2)]">
                 <CountUp end={3900} suffix="만원" separator={true} />
               </div>
             </Reveal>

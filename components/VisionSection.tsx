@@ -213,7 +213,7 @@ export const VisionSection: React.FC = () => {
               },
               {
                 num: "02",
-                title: "Python을 활용한 AI 프로그래밍과\nC를 활용한 임베디드/펌웨어 개발자 교육",
+                title: "Python을 활용한 AI 프로그래밍과 C를 활용한 임베디드/펌웨어 개발자 교육",
                 desc: "AI/IOT 시스템 개발에 주력인 Python과 임베디드/펌웨어 제어의 기반인 C언어를 실무 위주로 강의합니다."
               },
               {

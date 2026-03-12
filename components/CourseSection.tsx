@@ -53,7 +53,7 @@ export const CourseSection: React.FC = () => {
           </div>
           <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
             최종 프로젝트를 향한<br />
-            <span className="text-purple-800">실무 위주의 체계적인 커리큘럼</span>
+            <span className="text-purple-800">실무 위주의 커리큘럼</span>
           </h2>
         </Reveal>
 
@@ -170,7 +170,7 @@ export const CourseSection: React.FC = () => {
             title="Linux" 
             subtitle="리눅스를 통해 명령어 기반 운영체제를 익히며 개발 환경에 대한 감각을 키울 수 있습니다."
             icon={Server}
-            image="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2832&auto=format&fit=crop"
+            image="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2940&auto=format&fit=crop"
             projects={[]}
             steps={[
               {
@@ -202,9 +202,9 @@ export const CourseSection: React.FC = () => {
             title="OpenCV" 
             subtitle="컴퓨터 비전 라이브러리인 OpenCV를 활용하여 이미지 및 영상 처리 기술을 학습합니다."
             icon={Camera}
-            image="https://images.unsplash.com/photo-1527430253228-e93688616381?q=80&w=2832&auto=format&fit=crop"
+            image="https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?q=80&w=2940&auto=format&fit=crop"
             projects={[
-              { title: "Project 1 얼굴 인식 시스템 구축", desc: "KNN, SVM, CNN을 활용한 인공지능 개념과 딥러닝 기반 얼굴 인식(TensorFlow, Keras)라이브러리 이용, DNN 기반 얼굴 감지(YOLO, SSD 등) 구현", image: "https://postfiles.pstatic.net/MjAyNjAzMTJfMTc3/MDAxNzczMjg5ODY0MDE4.P77olCnerqiORoVB2C98C2uUWjvHA-VxnfK6GqOjX2og.BWH-O02W8wid63ZgQPLrnveF_800nm-HLZxIIEbpuNwg.PNG/20260312_132224_(1).png?type=w966" },
+              { title: "Project 1 얼굴인식 시스템구축", desc: "KNN, SVM, CNN을 활용한 인공지능 개념과 딥러닝 기반 얼굴 인식(TensorFlow, Keras)라이브러리 이용, DNN 기반 얼굴 감지(YOLO, SSD 등) 구현", image: "https://postfiles.pstatic.net/MjAyNjAzMTJfMTc3/MDAxNzczMjg5ODY0MDE4.P77olCnerqiORoVB2C98C2uUWjvHA-VxnfK6GqOjX2og.BWH-O02W8wid63ZgQPLrnveF_800nm-HLZxIIEbpuNwg.PNG/20260312_132224_(1).png?type=w966" },
               { title: "Project 2 실시간 객체 추적 프로그램 개발", desc: "OpenCV 라이브러리와 이미지 및 비디오 처리 기본 기능 학습, OpenCV 주요 함수 및 매서드 활용 DNN(Deep Neural Network)기반 객체 감지 개발", image: "https://postfiles.pstatic.net/MjAyNjAzMTJfMTQ0/MDAxNzczMjg5MTA2MTQ4.H1w2eQKkGKAJ0KQGL7vNWG3ibMZz9FlulB-98hc2Hlgg.Tn-XtOHsnkocwBaeJMmSX_5ZjvBdjin5Z4rByRXTq0og.JPEG/20260312_130632.jpg?type=w966" },
               { title: "Project 3 이미지 필터링 및 변환 프로그램 개발", desc: "색상 공간 변환(BGR, RGB, Grayscale, HSV)이미지 처리 기술과 가우시안 블러 및 미디안 블러 적용 비선형 필터(Bilateral Filter, Non-Local Means)를 개선하고 이미지 노이즈 제거와 필터 적용을 통한 이미지 품질 향상 구현", image: "https://postfiles.pstatic.net/MjAyNjAzMTJfNzgg/MDAxNzczMjg5ODY0MDM2.RNHHLT1B1YVN3iw299mkvprDwgxkPtLrxk3-43M3vUUg.vg_8D6aCvvAsudj1HLYTmckqCFiCofGJi0y98cMbI-sg.PNG/20260312_132320_ALTools_AIUpscaler.png?type=w966" }
             ]}
@@ -304,9 +304,9 @@ const CurriculumPhase: React.FC<{
                     {step.items.map((item, i) => (
                       <li key={i} className="group">
                         <div className="flex items-start justify-between mb-1">
-                          <span className="text-purple-800 font-bold text-sm group-hover:text-white transition-colors">{item.label}</span>
+                          <span className="text-purple-800 font-bold text-base group-hover:text-white transition-colors">{item.label}</span>
                         </div>
-                        <p className="text-gray-500 text-xs leading-relaxed group-hover:text-gray-400 transition-colors">{item.desc}</p>
+                        <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors">{item.desc}</p>
                       </li>
                     ))}
                   </ul>
