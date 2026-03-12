@@ -41,9 +41,10 @@ export const Hero: React.FC = () => {
         
         <h1 className="text-3xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
           {hero.title} <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-900">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-purple-900 whitespace-pre-line">
             {hero.highlight}
-          </span>로 거듭나세요
+          </span> <br />
+          거듭나세요
         </h1>
         
         <p className="text-base md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-medium leading-relaxed whitespace-pre-line drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">

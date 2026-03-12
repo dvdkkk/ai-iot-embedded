@@ -5,9 +5,9 @@ import { COURSES, EMPLOYMENT_STATUS, PROCESS_STEPS } from '../constants';
 
 const defaultContent: SiteContent = {
   hero: {
-    badge: "AI 미래유망직종 1위",
+    badge: "AI 미래유망직종",
     title: "미래를 여는 인공지능 기술",
-    highlight: "AI사물인터넷 MCU기반 임베디드 펌웨어 전문가 양성",
+    highlight: "AI사물인터넷 MCU기반\n임베디드 펌웨어 전문가로",
     description: "온 디바이스AI, 스마트팩토리, 스마트팜 등에 활용되는 Cortex-M4/Mx ARM MCU 기반 임베디드/펌웨어 실무 교육 과정입니다. 한국직업능력교육원에서 임베디드 전문가로 거듭나세요.",
     stats: [
       { label: '모집여부', value: '26년4월 ~ 26년10월(6개월과정)' },
@@ -86,8 +86,8 @@ interface ContentContextType {
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 // 버전을 v8로 올려서 로컬 스토리지를 강제 갱신함
-const STORAGE_KEY = 'site_content_v9';
-const LOG_KEY = 'visitor_logs_v9';
+const STORAGE_KEY = 'site_content_v11';
+const LOG_KEY = 'visitor_logs_v11';
 
 export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(defaultContent);
