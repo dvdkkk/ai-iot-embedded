@@ -108,11 +108,11 @@ export const ConsultationForm: React.FC = () => {
             <Reveal>
               <h2 className="text-3xl md:text-4xl font-black leading-tight mb-6">
                 망설이지 마세요.<br/>
-                AI 전문가가 <br/>
+                교육 전문가가 <br/>
                 친절하게 안내해드립니다.
               </h2>
               <p className="text-lg font-medium text-white/80 mb-6">
-                국비지원 자격 여부부터 취업 및 교육과정까지<br/>
+                국비지원 자격 여부부터 취업/교육과정까지<br/>
                 <span className="border-b-2 border-white">무료로 상담해드립니다.</span>
               </p>
               
