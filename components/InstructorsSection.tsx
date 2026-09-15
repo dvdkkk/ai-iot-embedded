@@ -42,6 +42,105 @@ const Reveal: React.FC<RevealProps> = ({ children, className = "", delay = 0 }) 
   );
 };
 
+interface InstructorCardProps {
+  instructor: {
+    name: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    experience: string[];
+    lectures: string[];
+  };
+  idx: number;
+}
+
+const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, idx }) => {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <Reveal delay={idx * 200} className="bg-zinc-900/50 border border-white/10 rounded-3xl overflow-hidden hover:border-purple-500/30 transition-all group shadow-xl">
+      <div className="flex flex-col md:flex-row h-full">
+        
+        {/* Image Section */}
+        <div className="md:w-2/5 min-h-[280px] md:min-h-[380px] relative overflow-hidden bg-gradient-to-b from-zinc-800 to-zinc-900 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent z-10 md:bg-gradient-to-r md:from-transparent md:to-zinc-900/80"></div>
+          
+          {!imgError ? (
+            <img 
+              src={instructor.image} 
+              alt={`강사 ${instructor.name}`} 
+              className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+              referrerPolicy="no-referrer"
+              crossOrigin="anonymous"
+              loading="lazy"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center p-6 text-center z-0 w-full h-full bg-gradient-to-br from-purple-950/40 via-zinc-900 to-black">
+              <div className="w-20 h-20 rounded-full bg-purple-900/40 border border-purple-500/40 flex items-center justify-center text-purple-300 mb-3 shadow-lg">
+                <User size={40} />
+              </div>
+              <span className="text-lg font-bold text-white">{instructor.name} 강사</span>
+              <span className="text-xs text-purple-300/80 mt-1">전문 훈련교사</span>
+            </div>
+          )}
+
+          <div className="absolute bottom-4 left-4 z-20 md:bottom-auto md:top-4">
+            <div className="bg-purple-900/90 border border-purple-400/40 text-purple-100 text-xs font-bold px-3 py-1 rounded-full inline-block backdrop-blur-md shadow-lg">
+              대표 강사
+            </div>
+          </div>
+        </div>
+
+        {/* Content Section */}
+        <div className="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+          <h3 className="text-2xl font-black text-white mb-1 flex items-end gap-2">
+            {instructor.name} <span className="text-sm font-medium text-gray-400 mb-1">강사</span>
+          </h3>
+          <h4 className="text-purple-400 font-bold mb-4 text-sm md:text-base">{instructor.title}</h4>
+          
+          <p className="text-gray-300 text-sm font-medium leading-relaxed whitespace-pre-line mb-6 border-l-2 border-purple-500/50 pl-3">
+            {instructor.subtitle}
+          </p>
+
+          <div className="space-y-5">
+            <div>
+              <h5 className="flex items-center gap-2 text-xs md:text-sm font-bold text-white mb-2.5 bg-white/5 inline-flex px-3 py-1 rounded-lg">
+                <Briefcase size={14} className="text-purple-400" />
+                실무 경력 사항
+              </h5>
+              <ul className="space-y-1.5">
+                {instructor.experience.map((exp, i) => (
+                  <li key={i} className="text-xs text-gray-400 flex items-start gap-2 break-keep">
+                    <span className="text-purple-400/60 mt-0.5">•</span>
+                    <span>{exp}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="flex items-center gap-2 text-xs md:text-sm font-bold text-white mb-2.5 bg-white/5 inline-flex px-3 py-1 rounded-lg">
+                <BookOpen size={14} className="text-purple-400" />
+                {instructor.name === "금기종" ? "대외활동" : "강의 경력 사항"}
+              </h5>
+              <ul className="space-y-1.5">
+                {instructor.lectures.map((lec, i) => (
+                  <li key={i} className="text-xs text-gray-400 flex items-start gap-2 break-keep">
+                    <span className="text-purple-400/60 mt-0.5">•</span>
+                    <span>{lec}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </Reveal>
+  );
+};
+
 export const InstructorsSection: React.FC = () => {
   const instructors = [
     {
@@ -87,85 +186,21 @@ export const InstructorsSection: React.FC = () => {
       <div className="container mx-auto px-4">
         
         <Reveal className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-800/10 border border-purple-800/30 text-purple-800 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300 mb-6">
             <User size={16} />
-            <span className="text-sm font-black tracking-widest uppercase">Instructors</span>
+            <span className="text-xs font-bold tracking-widest uppercase">Instructors</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black mb-6">
-            베테랑 <span className="text-purple-800">강사진 소개</span>
+          <h2 className="text-3xl md:text-5xl font-black mb-4">
+            베테랑 <span className="text-purple-400">강사진 소개</span>
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
             실무 경험과 강의 노하우를 모두 갖춘 최고의 전문가들이 여러분을 이끕니다.
           </p>
         </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
           {instructors.map((instructor, idx) => (
-            <Reveal key={idx} delay={idx * 200} className="bg-zinc-900/50 border border-white/10 rounded-3xl overflow-hidden hover:border-purple-800/30 transition-all group">
-              <div className="flex flex-col md:flex-row h-full">
-                
-                {/* Image Section */}
-                <div className="md:w-2/5 relative overflow-hidden bg-zinc-900/50 md:bg-zinc-800">
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10 md:bg-gradient-to-r"></div>
-                  <img 
-                    src={instructor.image} 
-                    alt={`강사 ${instructor.name}`} 
-                    className="w-full h-auto max-h-80 md:max-h-none md:h-full object-contain object-top md:object-cover md:object-center transition-all duration-700 scale-105 group-hover:scale-100"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute bottom-4 left-4 z-20 md:bottom-auto md:top-4">
-                    <div className="bg-purple-800 text-white text-xs font-bold px-3 py-1 rounded-full inline-block">
-                      대표 강사
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
-                  <h3 className="text-2xl font-black text-white mb-1 flex items-end gap-2">
-                    {instructor.name} <span className="text-sm font-medium text-gray-400 mb-1">강사</span>
-                  </h3>
-                  <h4 className="text-purple-800 font-bold mb-4">{instructor.title}</h4>
-                  
-                  <p className="text-gray-300 text-sm font-medium leading-relaxed whitespace-pre-line mb-6 border-l-2 border-purple-800/50 pl-3">
-                    {instructor.subtitle}
-                  </p>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h5 className="flex items-center gap-2 text-sm font-bold text-white mb-3 bg-white/5 inline-flex px-3 py-1 rounded-lg">
-                        <Briefcase size={14} className="text-purple-800" />
-                        실무 경력 사항
-                      </h5>
-                      <ul className="space-y-2">
-                        {instructor.experience.map((exp, i) => (
-                          <li key={i} className="text-xs text-gray-400 flex items-start gap-2 break-keep">
-                            <span className="text-purple-800/50 mt-0.5">•</span>
-                            <span>{exp}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h5 className="flex items-center gap-2 text-sm font-bold text-white mb-3 bg-white/5 inline-flex px-3 py-1 rounded-lg">
-                        <BookOpen size={14} className="text-purple-800" />
-                        {instructor.name === "금기종" ? "대외활동" : "강의 경력 사항"}
-                      </h5>
-                      <ul className="space-y-2">
-                        {instructor.lectures.map((lec, i) => (
-                          <li key={i} className="text-xs text-gray-400 flex items-start gap-2 break-keep">
-                            <span className="text-purple-800/50 mt-0.5">•</span>
-                            <span>{lec}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </Reveal>
+            <InstructorCard key={idx} instructor={instructor} idx={idx} />
           ))}
         </div>
 

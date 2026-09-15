@@ -83,8 +83,8 @@ interface ContentContextType {
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
-// 버전을 v8로 올려서 로컬 스토리지를 강제 갱신함
-const STORAGE_KEY = 'site_content_v11';
+// 버전을 v12로 올려서 로컬 스토리지를 강제 갱신함
+const STORAGE_KEY = 'site_content_v12';
 
 export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(defaultContent);
