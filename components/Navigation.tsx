@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, PhoneCall } from 'lucide-react';
+import { handlePhoneCallOrConsultation } from '../constants';
 
 export const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,16 +16,20 @@ export const Navigation: React.FC = () => {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('http')) {
+      // External links open in new window
+      e.preventDefault();
+      window.open(href, '_blank', 'noopener,noreferrer');
+      setIsMobileMenuOpen(false);
+      return;
+    }
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
       const headerOffset = 80;
-      const isMobile = window.innerWidth < 768;
-      const additionalOffset = (isMobile && targetId === 'consultation') ? 390 : 0;
-
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset + additionalOffset;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -41,7 +46,7 @@ export const Navigation: React.FC = () => {
     { name: '취업지원', href: '#employment-support' },
     { name: '취업현황', href: '#employment' },
     { name: '수강후기', href: '#reviews' },
-    { name: '상담신청', href: '#consultation' },
+    { name: '상담신청', href: 'https://naver.me/Gi0mmGqB', isExternal: true },
   ];
 
   return (
@@ -52,7 +57,7 @@ export const Navigation: React.FC = () => {
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className="text-lg md:text-2xl font-black tracking-tighter text-white"
         >
-          <span className="text-purple-800">한국직업능력교육원</span> 안산
+          <span className="text-purple-500">한국직업능력교육원</span> 안산
         </a>
 
         {/* Desktop Menu */}
@@ -61,11 +66,13 @@ export const Navigation: React.FC = () => {
             <a 
               key={link.name} 
               href={link.href} 
+              target={link.isExternal ? "_blank" : undefined}
+              rel={link.isExternal ? "noopener noreferrer" : undefined}
               onClick={(e) => handleNavClick(e, link.href)}
               className={`text-lg font-medium transition-colors ${
                 link.name === '상담신청' 
-                  ? 'text-purple-800 font-bold' 
-                  : 'text-gray-300 hover:text-purple-800'
+                  ? 'text-purple-400 font-bold hover:text-purple-300' 
+                  : 'text-gray-300 hover:text-purple-400'
               }`}
             >
               {link.name}
@@ -73,11 +80,9 @@ export const Navigation: React.FC = () => {
           ))}
           <a 
             href="tel:18775280" 
-            onClick={(e) => {
-              const isPc = window.innerWidth >= 1024;
-              if (isPc) handleNavClick(e, '#consultation');
-            }}
-            className="flex items-center gap-2 bg-purple-800 text-black px-5 py-2 rounded-full font-bold text-lg hover:bg-purple-700 transition-transform hover:scale-105"
+            onClick={handlePhoneCallOrConsultation}
+            className="flex items-center gap-2 bg-purple-700 text-white px-5 py-2 rounded-full font-bold text-lg hover:bg-purple-600 transition-transform hover:scale-105 cursor-pointer"
+            title="전화문의 (PC에서는 상담신청 창이 열립니다)"
           >
             <PhoneCall size={20} />
             1877-5280
@@ -97,10 +102,12 @@ export const Navigation: React.FC = () => {
             <a 
               key={link.name} 
               href={link.href} 
+              target={link.isExternal ? "_blank" : undefined}
+              rel={link.isExternal ? "noopener noreferrer" : undefined}
               className={`text-base font-medium py-2 border-b border-zinc-800 ${
                 link.name === '상담신청' 
-                  ? 'text-purple-800 font-bold' 
-                  : 'text-gray-300 hover:text-purple-800'
+                  ? 'text-purple-400 font-bold' 
+                  : 'text-gray-300 hover:text-purple-400'
               }`}
               onClick={(e) => handleNavClick(e, link.href)}
             >
@@ -108,11 +115,13 @@ export const Navigation: React.FC = () => {
             </a>
           ))}
           <a 
-            href="#consultation" 
-            className="bg-purple-800 text-black text-center py-3 rounded-md font-bold text-sm"
-            onClick={(e) => handleNavClick(e, '#consultation')}
+            href="https://naver.me/Gi0mmGqB" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-purple-700 text-white text-center py-3 rounded-md font-bold text-sm shadow-md"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            무료상담 신청하기
+            무료상담 신청하기 (새 창 열림)
           </a>
         </div>
       )}

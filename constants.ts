@@ -67,3 +67,22 @@ export const TARGET_AUDIENCE = [
   "실무 중심의 포트폴리오를 완성하여 고연봉 취업을 원하는 분",
   "최신 AI 트렌드를 배우고 현업에 바로 투입되고 싶은 구직자"
 ];
+
+export const CONSULTATION_URL = 'https://naver.me/Gi0mmGqB';
+
+/**
+ * PC 환경에서는 상담신청 새 창(naver.me)을 열고,
+ * 모바일 환경에서는 tel: 프로토콜로 바로 전화 연결을 실행합니다.
+ */
+export const handlePhoneCallOrConsultation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  if (typeof window === 'undefined') return;
+  
+  const isMobile = 
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth < 768;
+
+  if (!isMobile) {
+    e.preventDefault();
+    window.open(CONSULTATION_URL, '_blank', 'noopener,noreferrer');
+  }
+};
