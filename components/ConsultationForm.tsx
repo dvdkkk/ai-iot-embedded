@@ -150,7 +150,7 @@ export const ConsultationForm: React.FC = () => {
                 </a>
 
                 <p className="text-center text-xs text-zinc-400 mt-3 flex items-center justify-center gap-1">
-                  <span>* 네이버 폼으로 안전하고 빠르게 신청하실 수 있습니다. (새 창 열림)</span>
+                  <span>* 공식신청 폼으로 안전하고 빠르게 신청하실 수 있습니다. (새 창 열림)</span>
                 </p>
               </div>
             </div>
