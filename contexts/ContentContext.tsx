@@ -86,10 +86,35 @@ const ContentContext = createContext<ContentContextType | undefined>(undefined);
 // 버전을 v13으로 올려서 로컬 스토리지를 강제 갱신함
 const STORAGE_KEY = 'site_content_v13';
 
-// 구글 시트 연동 URL (구글 시트 웹 게시 CSV 링크 또는 Apps Script JSON 링크)
-// 구글 스프레드시트에서 [파일] > [공유] > [웹에 게시] > 형식: '쉼표로 구분된 값(.csv)'으로 게시 후 URL을 설정하거나
-// 환경변수 VITE_GOOGLE_SHEET_CSV_URL 등으로 지정할 수 있습니다.
-export const GOOGLE_SHEET_CSV_URL = (import.meta as any).env?.VITE_GOOGLE_SHEET_CSV_URL || '';
+// 구글 시트 웹 게시 CSV 링크 ('시트1'의 d4 셀값 실시간 연동)
+export const GOOGLE_SHEET_CSV_URL = 
+  (import.meta as any).env?.VITE_GOOGLE_SHEET_CSV_URL || 
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vRzLxHiDq6F7MLg8ieg3CaVCAxZY1evEPiJN2Tn24LY2Xgv3g8cZJwrG4nnwLEExn1CD_bzRUZVh4UA/pub?output=csv';
+
+// CSV 한 줄을 따옴표와 쉼표를 고려하여 올바르게 분리하는 유틸리티
+function parseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current);
+  return result;
+}
 
 export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(defaultContent);
@@ -106,20 +131,21 @@ export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children })
       }
     }
 
-    // 구글 시트 URL이 설정되어 있을 경우, 페이지 접속/새로고침 시 D4 셀의 최신 개강일 데이터를 비동기 조회하여 실시간 반영
+    // 구글 시트 URL을 통해 페이지 접속 및 새로고침 시마다 D4 셀(4행 4열: 개강일)을 실시간 반영
     if (GOOGLE_SHEET_CSV_URL) {
-      fetch(GOOGLE_SHEET_CSV_URL, { cache: 'no-store' })
+      const fetchUrl = `${GOOGLE_SHEET_CSV_URL}&_t=${Date.now()}`;
+      fetch(fetchUrl, { cache: 'no-store' })
         .then(res => res.text())
         .then(csvText => {
-          // CSV 파싱: 4행 4열(D4) 값 추출
-          const rows = csvText.split(/\r?\n/).map(row => row.split(','));
-          // 0-indexed 기준: 4행(row index 3), 4열(col index 3 = D열)
-          if (rows[3] && rows[3][3]) {
-            const rawD4 = rows[3][3].trim().replace(/^["']|["']$/g, '');
-            if (rawD4) {
+          const lines = csvText.split(/\r?\n/).filter(line => line.length > 0);
+          // D4는 4번째 행, 4번째 열 (index 3)
+          if (lines.length >= 4) {
+            const row4 = parseCSVLine(lines[3]);
+            const d4Value = (row4[3] || '').trim().replace(/^["']|["']$/g, '');
+            if (d4Value) {
               setContent(prev => {
                 const newStats = prev.hero.stats.map(stat => 
-                  stat.label === '교육기간' ? { ...stat, value: rawD4 } : stat
+                  stat.label === '교육기간' ? { ...stat, value: d4Value } : stat
                 );
                 return {
                   ...prev,
