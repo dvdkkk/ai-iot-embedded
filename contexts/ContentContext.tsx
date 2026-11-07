@@ -125,27 +125,39 @@ export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children })
     if (savedContent) {
       try {
         const parsed = JSON.parse(savedContent);
+        // localStorage에 저장된 예전 교육기간 값이 최신 시트 값을 덮어쓰지 않도록 초기화 유지
         setContent({ ...defaultContent, ...parsed });
       } catch (e) {
         console.error("Failed to load content", e);
       }
     }
 
-    // 구글 시트 URL을 통해 페이지 접속 및 새로고침 시마다 D4 셀(4행 4열: 개강일)을 실시간 반영
+    // 구글 시트 URL을 통해 페이지 접속 및 새로고침 시마다 D4 셀(4행 4열: 개강일)의 오로지 '현재 최신 값'만 실시간 반영
     if (GOOGLE_SHEET_CSV_URL) {
-      const fetchUrl = `${GOOGLE_SHEET_CSV_URL}&_t=${Date.now()}`;
-      fetch(fetchUrl, { cache: 'no-store' })
+      // gid=0 (시트1) 명시 및 타임스탬프 쿼리로 브라우저/프록시 캐시를 완전히 우회하여 항상 실시간 현재값만 가져옵니다.
+      const separator = GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?';
+      const fetchUrl = `${GOOGLE_SHEET_CSV_URL}${separator}gid=0&_nocache=${Date.now()}`;
+      
+      fetch(fetchUrl, { 
+        cache: 'no-store',
+        headers: {
+          'Pragma': 'no-cache',
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
+        }
+      })
         .then(res => res.text())
         .then(csvText => {
           const lines = csvText.split(/\r?\n/).filter(line => line.length > 0);
-          // D4는 4번째 행, 4번째 열 (index 3)
+          // 4번째 행(인덱스 3), D열(4번째 열, 인덱스 3)의 현재 셀값 추출
           if (lines.length >= 4) {
             const row4 = parseCSVLine(lines[3]);
-            const d4Value = (row4[3] || '').trim().replace(/^["']|["']$/g, '');
-            if (d4Value) {
+            // 따옴표나 불필요한 개행문자를 제거한 순수 현재 값만 추출
+            const currentD4Value = (row4[3] || '').trim().replace(/^["']|["']$/g, '');
+            
+            if (currentD4Value) {
               setContent(prev => {
                 const newStats = prev.hero.stats.map(stat => 
-                  stat.label === '교육기간' ? { ...stat, value: d4Value } : stat
+                  stat.label === '교육기간' ? { ...stat, value: currentD4Value } : stat
                 );
                 return {
                   ...prev,
