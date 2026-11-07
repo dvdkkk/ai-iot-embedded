@@ -10,7 +10,7 @@ const defaultContent: SiteContent = {
     highlight: "AI사물인터넷 MCU기반\n임베디드 펌웨어 전문가로",
     description: "온 디바이스AI, 스마트팩토리, 스마트팜 등에 활용되는 Cortex-M4/Mx ARM MCU 기반 임베디드/펌웨어 실무 교육 과정입니다. 한국직업능력교육원에서 임베디드 전문가로 거듭나세요.",
     stats: [
-      { label: '교육기간', value: '26.10.28개강(6개월과정)' },
+      { label: '교육기간', value: '26.12.21개강(6개월과정)' },
       { label: '교육시간', value: '월~금 09:00~17:40' },
       { label: '수강료', value: '95~100% 국비지원' },
       { label: '수업형태', value: '오프라인 수업' },
@@ -83,8 +83,13 @@ interface ContentContextType {
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
-// 버전을 v12로 올려서 로컬 스토리지를 강제 갱신함
-const STORAGE_KEY = 'site_content_v12';
+// 버전을 v13으로 올려서 로컬 스토리지를 강제 갱신함
+const STORAGE_KEY = 'site_content_v13';
+
+// 구글 시트 연동 URL (구글 시트 웹 게시 CSV 링크 또는 Apps Script JSON 링크)
+// 구글 스프레드시트에서 [파일] > [공유] > [웹에 게시] > 형식: '쉼표로 구분된 값(.csv)'으로 게시 후 URL을 설정하거나
+// 환경변수 VITE_GOOGLE_SHEET_CSV_URL 등으로 지정할 수 있습니다.
+export const GOOGLE_SHEET_CSV_URL = (import.meta as any).env?.VITE_GOOGLE_SHEET_CSV_URL || '';
 
 export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(defaultContent);
@@ -99,6 +104,37 @@ export const ContentProvider: React.FC<{ children: ReactNode }> = ({ children })
       } catch (e) {
         console.error("Failed to load content", e);
       }
+    }
+
+    // 구글 시트 URL이 설정되어 있을 경우, 페이지 접속/새로고침 시 D4 셀의 최신 개강일 데이터를 비동기 조회하여 실시간 반영
+    if (GOOGLE_SHEET_CSV_URL) {
+      fetch(GOOGLE_SHEET_CSV_URL, { cache: 'no-store' })
+        .then(res => res.text())
+        .then(csvText => {
+          // CSV 파싱: 4행 4열(D4) 값 추출
+          const rows = csvText.split(/\r?\n/).map(row => row.split(','));
+          // 0-indexed 기준: 4행(row index 3), 4열(col index 3 = D열)
+          if (rows[3] && rows[3][3]) {
+            const rawD4 = rows[3][3].trim().replace(/^["']|["']$/g, '');
+            if (rawD4) {
+              setContent(prev => {
+                const newStats = prev.hero.stats.map(stat => 
+                  stat.label === '교육기간' ? { ...stat, value: rawD4 } : stat
+                );
+                return {
+                  ...prev,
+                  hero: {
+                    ...prev.hero,
+                    stats: newStats
+                  }
+                };
+              });
+            }
+          }
+        })
+        .catch(err => {
+          console.warn('Google Sheet live sync failed:', err);
+        });
     }
 
     setIsLoaded(true);
